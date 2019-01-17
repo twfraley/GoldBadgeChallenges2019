@@ -43,8 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyObject.cs" />
-    <Compile Include="MyObjectRepository.cs" />
+    <Compile Include="Claim.cs" />
+    <Compile Include="ClaimsRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgramUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
