@@ -8,6 +8,10 @@ namespace _01_Challenge
 {
     public class ClaimsRepository
     {
+        //--------------------
+        // change list to queue
+        //--------------------
+
         List<Claim> claims = new List<Claim>();
 
         public void AddClaimToList(Claim claim)
@@ -24,7 +28,6 @@ namespace _01_Challenge
         {
             claims.RemoveAt(0);
         }
-
 
     }
 }

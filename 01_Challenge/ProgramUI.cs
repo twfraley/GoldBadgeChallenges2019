@@ -6,11 +6,11 @@ namespace _01_Challenge
     public class ProgramUI
     {
         ClaimsRepository _claimsRepository = new ClaimsRepository();
-        Claim _claim = new Claim();
         List<Claim> _claims = new List<Claim>();
 
+
         //-------------------
-        // Add sample claims to list here
+        // Add sample claims to list
         //-------------------
 
 
@@ -18,10 +18,11 @@ namespace _01_Challenge
         {
             //Start program
 
+            PopulateList();
+
             Console.WriteLine("-------KOMODO CLAIMS SOFTWARE-------\n...\n...");
 
             bool runProgram = true;
-
             while (runProgram)
             {
                 int menuItem = 4;
@@ -46,6 +47,7 @@ namespace _01_Challenge
                     correctMenuItem = int.TryParse(Console.ReadLine(), out menuItem);
                 }
 
+
                 switch (menuItem)
                 {
                     case 1:
@@ -67,29 +69,24 @@ namespace _01_Challenge
 
         public void SeeClaims()
         {
-            List<Claim> _claims = new List<Claim>();
-            _claimsRepository.GetClaims();
-
-            foreach (Claim _claim in _claims)
-            {
-                Console.WriteLine(_claim);
-            }
-            Console.ReadKey();
+            _claims = _claimsRepository.GetClaims();
+            DisplayClaimsList(_claims);
         }
 
         public void TakeCareOfNextClaim()
         {
+            Claim claim = new Claim();
 
-            int menuItem = 2;
-            bool correctMenuItem = false;
 
             //------------------------
-            //Add CONSOLE.WRITELINE for the claims info
+            //Add CONSOLE.WRITELINE for the first claim's info
             //------------------------
 
-            Console.WriteLine("Do you want to finalize the claim now?\n" +
+            Console.WriteLine("Do you want to finalize the first claim in the queue?\n" +
                 "1: Yes\n" +
                 "2: No");
+            int menuItem = 2;
+            bool correctMenuItem = false;
             correctMenuItem = int.TryParse(Console.ReadLine(), out menuItem);
 
             while (!correctMenuItem)
@@ -103,18 +100,13 @@ namespace _01_Challenge
             switch (menuItem)
             {
                 case 1:
-                    _claimsRepository.RemoveFirstItemFromList(_claim);
-                    _claimsRepository.GetClaims();
-                    foreach (Claim _claim in _claims)
-                    {
-                        Console.WriteLine(_claim);
-                    }
-                    Console.ReadKey();
+                    _claimsRepository.RemoveFirstItemFromList(claim);
+                    _claims = _claimsRepository.GetClaims();
+                    DisplayClaimsList(_claims);
                     break;
                 case 2:
                 default: break;
             }
-
         }
 
         public void EnterNewClaim()
@@ -123,12 +115,8 @@ namespace _01_Challenge
             Console.WriteLine("----NEW CLAIM----\n...\n...");
 
             Console.WriteLine("Existing claim list:");
-            _claimsRepository.GetClaims();
-            foreach (Claim _claim in _claims)
-            {
-                Console.WriteLine(_claim);
-            }
-            Console.ReadKey();
+            _claims = _claimsRepository.GetClaims();
+            DisplayClaimsList(_claims);
 
             Console.WriteLine("Enter the next available Claim ID #:");
             int claimID = 1;
@@ -214,14 +202,39 @@ namespace _01_Challenge
                 correctDateOfClaim = DateTime.TryParse(Console.ReadLine(), out dateOfClaim);
             }
 
-            Claim _claim = new Claim(claimID,claimType,description,amount,dateOfAccident,dateOfClaim);
-            _claimsRepository.AddClaimToList(_claim);
-            _claimsRepository.GetClaims();
-            foreach (Claim _claim in _claims)
+            Claim newClaim = new Claim(claimID, claimType, description, amount, dateOfAccident, dateOfClaim);
+            _claimsRepository.AddClaimToList(newClaim);
+            _claims = _claimsRepository.GetClaims();
+            DisplayClaimsList(_claims);
+        }
+
+        public void DisplayClaimsList(List<Claim> claims)
+        {
+            Console.WriteLine("ClaimID\tType\tDescription\tAmount\tDate of Accident\tDate of Claim\t\tClaim is Valid?");
+            foreach (Claim claim in claims)
             {
-                Console.WriteLine(_claim);
+                Console.WriteLine($"{claim.ClaimID}\t{claim.ClaimType}\t{claim.Description}\t${claim.Amount}\t{claim.DateOfAccident.ToShortDateString()}\t{claim.DateOfClaim.ToShortDateString()}\t{claim.ClaimValid}");
             }
+            Console.WriteLine("-------------------------------------------");
             Console.ReadKey();
+        }
+
+        public void PopulateList()
+        {
+            DateTime sampleAccidentDateOne = new DateTime(2018, 9, 1, 12, 00, 00);
+            DateTime sampleAccidentDateTwo = new DateTime(2019, 1, 1, 12, 00, 00);
+            DateTime sampleAccidentDateThree = new DateTime(1890, 2, 1, 12, 00, 00);
+            DateTime sampleClaimDateOne = new DateTime(2018, 9, 15, 12, 00, 00);
+            DateTime sampleClaimDateTwo = new DateTime(2019, 1, 2, 12, 00, 00);
+            DateTime sampleClaimDateThree = new DateTime(1904, 1, 3, 12, 00, 00);
+
+            Claim sampleClaimOne = new Claim(1, ClaimType.Home, "Mouse exploded", 4000.03m, sampleAccidentDateOne, sampleClaimDateOne);
+            Claim sampleClaimTwo = new Claim(2, ClaimType.Theft, "Mouse stole car", 4000.05m, sampleAccidentDateTwo, sampleAccidentDateThree);
+            Claim sampleClaimThree = new Claim(3, ClaimType.Car, "carriage stolen", 210.56m, sampleAccidentDateThree, sampleClaimDateThree);
+
+            _claimsRepository.AddClaimToList(sampleClaimOne);
+            _claimsRepository.AddClaimToList(sampleClaimTwo);
+            _claimsRepository.AddClaimToList(sampleClaimThree);
         }
     }
 }

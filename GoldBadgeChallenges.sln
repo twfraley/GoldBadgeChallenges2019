@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_Challenge", "01_Challenge\01_Challenge.csproj", "{2C76E86D-F6F1-48AD-95E9-D614189DC06E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_Challenge", "01_Challenge\02_Challenge.csproj", "{2C76E86D-F6F1-48AD-95E9-D614189DC06E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_Challenge_Tests", "01_Challenge_Tests\01_Challenge_Tests.csproj", "{C611A369-BA76-4008-9523-CA1F37FCF853}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_Challenge_Tests", "01_Challenge_Tests\02_Challenge_Tests.csproj", "{C611A369-BA76-4008-9523-CA1F37FCF853}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
