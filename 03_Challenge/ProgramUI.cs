@@ -17,26 +17,29 @@ namespace _03_Challenge
             bool runProgram = true;
             PopulateList();
 
-            Console.WriteLine("welcome to whatever");
+            Console.WriteLine("Welcome to great Komodo Business Software!\nPress any key to continue...");
+            Console.ReadKey();
 
             while (runProgram)
             {
+                Console.Clear();
                 Console.WriteLine("MAIN MENU\n...\n" +
                     "1. Show List of all Outings\n" +
                     "2. Add New Outing to List\n" +
                     "3. Perform Cost Calculations\n" +
-                    "4. End Program");
+                    "4. End Program\n");
                 bool correctMenuSelection = int.TryParse(Console.ReadLine(), out int mainMenuSelection);
 
                 while (!correctMenuSelection)
                 {
-                    Console.WriteLine("You have entered an incorrect value.\n" +
+                    Console.Clear();
+                    Console.WriteLine("\nYou have entered an incorrect value.\n" +
                         "Please type the NUMBER of the desired menu item.\n");
                     Console.WriteLine("MAIN MENU\n...\n" +
                         "1. Show List of all Outings\n" +
                         "2. Add New Outing to List\n" +
                         "3. Perform Cost Calculations\n" +
-                        "4. End Program");
+                        "4. End Program\n");
                     correctMenuSelection = int.TryParse(Console.ReadLine(), out mainMenuSelection);
                 }
 
@@ -66,24 +69,26 @@ namespace _03_Challenge
 
         public void AddOutingToList()
         {
-            Console.WriteLine("Enter new event:");
+            Console.Clear();
+            Console.WriteLine("\nEnter new event:");
             Console.WriteLine("What type of event would you like to enter?\n" +
                 "1: Golf\n" +
                 "2: Bowling\n" +
                 "3: Amusement Park\n" +
-                "4: Concert");
+                "4: Concert\n");
             bool eventMenuSelection = int.TryParse(Console.ReadLine(), out int eventSelection);
 
             while (!eventMenuSelection)
             {
-                Console.WriteLine("You have entered an incorrect value.\n" +
+                Console.Clear();
+                Console.WriteLine("\nYou have entered an incorrect value.\n" +
                     "Please type the NUMBER of the desired menu item.\n");
                 Console.WriteLine("Enter new event:");
                 Console.WriteLine("What type of event would you like to enter?\n" +
                     "1: Golf\n" +
                     "2: Bowling\n" +
                     "3: Amusement Park\n" +
-                    "4: Concert");
+                    "4: Concert\n");
                 eventMenuSelection = int.TryParse(Console.ReadLine(), out eventSelection);
             }
 
@@ -105,34 +110,34 @@ namespace _03_Challenge
                     break;
             }
 
-            Console.WriteLine("How many people attended the event?");
+            Console.WriteLine("\nHow many people attended the event?\n");
             bool menuSelection = int.TryParse(Console.ReadLine(), out int attendance);
             while (!menuSelection)
             {
                 Console.WriteLine("You have entered an incorrect character.  Please try again.\n" +
-                    "How many people attended the event?");
+                    "How many people attended the event?\n");
                 menuSelection = int.TryParse(Console.ReadLine(), out attendance);
             }
 
-            Console.WriteLine("What was the date of the event? mm/dd/yyyy");
+            Console.WriteLine("\nWhat was the date of the event? mm/dd/yyyy\n");
             menuSelection = DateTime.TryParse(Console.ReadLine(), out DateTime dateOfEvent);
             while (!menuSelection)
             {
                 Console.WriteLine("You have entered an incorrect character.  Please try again.\n" +
-                    "What was the date of the event? mm/dd/yyyy");
+                    "What was the date of the event? mm/dd/yyyy\n");
                 menuSelection = DateTime.TryParse(Console.ReadLine(), out dateOfEvent);
             }
 
-            Console.WriteLine("How much did the event cost?");
+            Console.WriteLine("\nHow much did the event cost?\n");
             menuSelection = decimal.TryParse(Console.ReadLine(), out decimal costOfEvent);
             while (!menuSelection)
             {
                 Console.WriteLine("You have entered an incorrect character.  Please try again.\n" +
-                    "How much did the event cost?");
+                    "How much did the event cost?\n");
                 menuSelection = decimal.TryParse(Console.ReadLine(), out costOfEvent);
             }
 
-            Console.WriteLine($"The cost per person is {costOfEvent / attendance}");
+            Console.WriteLine($"\nThe cost per person is {costOfEvent / attendance}");
 
             Outing outing = new Outing(eventType, attendance, dateOfEvent, costOfEvent);
             _outingsRepository.AddToList(outing);
@@ -142,18 +147,19 @@ namespace _03_Challenge
 
         public void CostCalculations()
         {
-            Console.WriteLine("What calculation would you like to perform?\n" +
+            Console.Clear();
+            Console.WriteLine("\nWhat calculation would you like to perform?\n" +
                 "Choose from the list below:\n\n" +
                 "1: Show total cost of all outings\n" +
                 "2: Show total cost of golf outings\n" +
                 "3: Show total cost of bowling outings\n" +
                 "4: Show total cost of amusement park outings\n" +
-                "5: Show total cost of concert outings");
+                "5: Show total cost of concert outings\n");
             bool correctMenuChoice = int.TryParse(Console.ReadLine(), out int menuChoice);
 
             while (!correctMenuChoice)
             {
-                Console.WriteLine("You have entered an incorrect value.\n" +
+                Console.WriteLine("\nYou have entered an incorrect value.\n" +
                     "Please type the NUMBER of the desired menu item.\n");
                 Console.WriteLine("What calculation would you like to perform?\n" +
                     "Choose from the list below:\n\n" +
@@ -161,7 +167,7 @@ namespace _03_Challenge
                     "2: Show total cost of golf outings\n" +
                     "3: Show total cost of bowling outings\n" +
                     "4: Show total cost of amusement park outings\n" +
-                    "5: Show total cost of concert outings");
+                    "5: Show total cost of concert outings\n");
                 correctMenuChoice = int.TryParse(Console.ReadLine(), out menuChoice);
             }
 
@@ -188,11 +194,13 @@ namespace _03_Challenge
 
         public void DisplayListOfOutings(List<Outing> outings)
         {
+            Console.WriteLine("\n");
             foreach (Outing outing in outings)
             {
-                Console.WriteLine($"{outing.EventType} {outing.Attendance} {outing.DateOfEvent} {outing.CostOfEvent} {outing.CostPerPerson}");
+                Console.WriteLine($"{outing.EventType} on {outing.DateOfEvent.ToShortDateString()} ---- {outing.Attendance} attended, at a cost of ${outing.CostPerPerson} per person, for a total cost of ${outing.CostOfEvent}");
             }
-            Console.WriteLine("--------------------------");
+            Console.WriteLine("Press any key to continue:\n" +
+                "--------------------------");
             Console.ReadKey();
         }
 
@@ -205,14 +213,15 @@ namespace _03_Challenge
 
             decimal totalCost = golf + bowling + amusementPark + concert;
 
-            Console.WriteLine($"The total cost of all outings was {totalCost}");
+            Console.WriteLine($"The total cost of all outings was ${totalCost}");
             Console.ReadKey();
         }
 
         public void OutingCost(EventType eventType)
         {
             decimal cost = _outingsRepository.CalculateIndividualCosts(eventType);
-            Console.WriteLine($"The total cost for all {eventType} outings was {cost}.");
+            Console.WriteLine($"The total cost for all {eventType} outings was ${cost}.");
+            Console.ReadKey();
         }
 
         public void PopulateList()
