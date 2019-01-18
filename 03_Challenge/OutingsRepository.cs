@@ -20,56 +20,15 @@ namespace _03_Challenge
             return outings;
         }
 
-        public decimal CombinedGolfCosts(List<Outing> outings)
+        public decimal CalculateIndividualCosts(EventType eventType)
         {
-            decimal golfCost = 0;
+            decimal eventCost = 0;
             foreach (Outing outing in outings)
             {
-                if (outing.EventType == EventType.Golf)
-                    golfCost = outing.CostOfEvent;
-                else
-                    golfCost = 0;
+                if (outing.EventType == eventType)
+                    eventCost += outing.CostOfEvent;
             }
-            return golfCost;
-        }
-
-        public decimal CombinedBowlingCosts(List<Outing> outings)
-        {
-            decimal bowlingCost = 0;
-            foreach (Outing outing in outings)
-            {
-                if (outing.EventType == EventType.Bowling)
-                    bowlingCost = outing.CostOfEvent;
-                else
-                    bowlingCost = 0;
-            }
-            return bowlingCost;
-        }
-
-        public decimal CombinedAmusementParkCosts(List<Outing> outings)
-        {
-            decimal amusementParkCost = 0;
-            foreach (Outing outing in outings)
-            {
-                if (outing.EventType == EventType.AmusementPark)
-                    amusementParkCost = outing.CostOfEvent;
-                else
-                    amusementParkCost = 0;
-            }
-            return amusementParkCost;
-        }
-
-        public decimal CombinedConcertCosts(List<Outing> outings)
-        {
-            decimal concertCost = 0;
-            foreach (Outing outing in outings)
-            {
-                if (outing.EventType == EventType.Concert)
-                    concertCost = outing.CostOfEvent;
-                else
-                    concertCost = 0;
-            }
-            return concertCost;
+            return eventCost;
         }
     }
 }
