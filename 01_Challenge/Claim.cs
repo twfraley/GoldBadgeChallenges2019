@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _01_Challenge
+namespace _02_Challenge
 {
     public enum ClaimType {  Car, Home, Theft}
 
@@ -31,7 +31,7 @@ namespace _01_Challenge
 
         public Claim()
         {
-
+            
         }
 
         public override string ToString()

@@ -4,29 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _01_Challenge
+namespace _02_Challenge
 {
     public class ClaimsRepository
     {
-        //--------------------
-        // change list to queue
-        //--------------------
-
-        List<Claim> claims = new List<Claim>();
+        Queue<Claim> claims = new Queue<Claim>();
 
         public void AddClaimToList(Claim claim)
         {
-            claims.Add(claim);
+            claims.Enqueue(claim);
         }
 
-        public List<Claim> GetClaims()
+        public Queue<Claim> GetClaims()
         {
+            claims.Peek();
             return claims;
         }
 
         public void RemoveFirstItemFromList(Claim claim)
         {
-            claims.RemoveAt(0);
+            claims.Dequeue();
         }
 
     }

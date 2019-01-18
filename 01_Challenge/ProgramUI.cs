@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace _01_Challenge
+namespace _02_Challenge
 {
     public class ProgramUI
     {
         ClaimsRepository _claimsRepository = new ClaimsRepository();
-        List<Claim> _claims = new List<Claim>();
+        Queue<Claim> _claims = new Queue<Claim>();
 
-
-        //-------------------
-        // Add sample claims to list
-        //-------------------
+        //-------------------------
+        // TO-DO: MAKE UNIT TESTS FOR REPOSITORY
+        //-----------------------
 
 
         public void Run()
@@ -192,7 +191,7 @@ namespace _01_Challenge
 
             bool correctDateOfClaim = false;
             DateTime dateOfClaim;
-            Console.WriteLine("Enter the date of the accident (mm/dd/yyyy):");
+            Console.WriteLine("Enter the date of the claim (mm/dd/yyyy):");
             correctDateOfClaim = DateTime.TryParse(Console.ReadLine(), out dateOfClaim);
             while (!correctDateOfClaim)
             {
@@ -208,7 +207,7 @@ namespace _01_Challenge
             DisplayClaimsList(_claims);
         }
 
-        public void DisplayClaimsList(List<Claim> claims)
+        public void DisplayClaimsList(Queue<Claim> claims)
         {
             Console.WriteLine("ClaimID\tType\tDescription\tAmount\tDate of Accident\tDate of Claim\t\tClaim is Valid?");
             foreach (Claim claim in claims)
