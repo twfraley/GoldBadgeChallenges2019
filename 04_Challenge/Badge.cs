@@ -8,10 +8,6 @@ namespace _04_Challenge
 {
     public class Badge
     {
-        //  A badge class that has the following properties:
-        //      BadgeID
-        //      List of door names for access
-
         Dictionary<int,List<string>> badges = new Dictionary<int,List<string>>();
         List<string> doors = new List<string>();
 
