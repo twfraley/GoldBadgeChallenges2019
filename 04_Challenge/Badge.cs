@@ -8,7 +8,6 @@ namespace _04_Challenge
 {
     public class Badge
     {
-        Dictionary<int,List<string>> badges = new Dictionary<int,List<string>>();
         List<string> doors = new List<string>();
 
         public int BadgeID { get; set; }
