@@ -24,24 +24,39 @@ namespace _04_Challenge
 
         public void Run()
         {
-            // Menu
-            //  Hello Security Admin, What would you like to do?
-            //      1. Add a badge
-            //      2. Edit a badge.
-            //      3. List all Badges
-            //      4. Exit
+            PopulateBadgeList();
+
+            bool runProgram = true;
+            while (runProgram)
+            {
+                Console.WriteLine("Hello security Admin, what would you like to do?\n" +
+                    "1. Add a badge\n" +
+                    "2. Edit a badge\n" +
+                    "3. List all Badges\n" +
+                    "4. Exit");
+                int menuChoice = int.Parse(Console.ReadLine());
+
+                switch (menuChoice)
+                {
+                    case 1:
+                        AddABadge();
+                        break;
+                    case 2:
+                        EditABadge();
+                        break;
+                    case 3:
+                        ListAllBadges();
+                        break;
+                    case 4:
+                    default:
+                        runProgram = false;
+                        break;
+                }
+            }
         }
 
         public void AddABadge()
         {
-            //  #1 Add a badge
-            //      What is the number on the badge:  12345
-            //      List a door that it needs access to: A5
-            //      Any other doors(y/n)? y
-            //      List a door that it needs access to: A7
-            //      Any other doors(y/n)? n
-            //      (Return to main menu.)
-
             Console.WriteLine("Add a badge:\n...\n...\n" +
                 "What is the number on the badge? (ex: #####)");
             int badgeID = int.Parse(Console.ReadLine());
@@ -52,7 +67,7 @@ namespace _04_Challenge
                 Console.WriteLine("List a door that it needs access to:");
                 string door = Console.ReadLine();
 
-                // add door to list
+                _repo.AddBadgeToDictionary(badgeID, door);
 
                 Console.WriteLine("Does it need access to any other doors? Y/N");
                 string menuChoiceYN = Console.ReadLine().ToLower();
@@ -115,20 +130,24 @@ namespace _04_Challenge
         public void ListAllBadges()
         {
             Dictionary<int,List<string>> badgeList = _repo.GetBadgeList();
-            Console.WriteLine(badgeList.Keys);
-            Console.WriteLine(badgeList.Values);
 
             foreach (KeyValuePair<int, List<string>> badgeID in badgeList)
             {
-                Console.WriteLine("Key Badge #: \tDoorAccess");
-                Console.WriteLine($"{badgeList.Keys} \t\t {badgeList.Values}");
-            }
+                //foreach list item (door), write it to the console, one after the other. Maybe?
 
+                Console.WriteLine("Key Badge #: \tDoorAccess");
+                Console.WriteLine($"{badgeID.Key} \t\t {badgeID.Value}");
+            }
         }
 
         public void PopulateBadgeList()
         {
-            // Seed badge list to make it easier to work with
+            _repo.AddBadgeToDictionary(12345, "A5");
+            _repo.AddToDoorList(12345, "B7");
+            _repo.AddBadgeToDictionary(22345, "A3");
+            _repo.AddToDoorList(22345, "A2");
+            _repo.AddToDoorList(22345, "A1");
+            _repo.AddBadgeToDictionary(32345, "A3");
         }
     }
 }
