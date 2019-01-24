@@ -22,7 +22,19 @@ namespace _04_Challenge
                     "2. Edit a badge\n" +
                     "3. List all Badges\n" +
                     "4. Exit");
-                int menuChoice = int.Parse(Console.ReadLine());
+                bool menuCorrect = int.TryParse(Console.ReadLine(), out int menuChoice);
+
+                while (!menuCorrect)
+                {
+                    Console.WriteLine("You have entered an incorrect character.\n" +
+                        "Please type the NUMBER of the menu item you want.");
+                    Console.WriteLine("Hello security Admin, what would you like to do?\n" +
+                        "1. Add a badge\n" +
+                        "2. Edit a badge\n" +
+                        "3. List all Badges\n" +
+                        "4. Exit");
+                    menuCorrect = int.TryParse(Console.ReadLine(), out menuChoice);
+                }
 
                 switch (menuChoice)
                 {
@@ -48,7 +60,16 @@ namespace _04_Challenge
         {
             Console.WriteLine("Add a badge:\n...\n...\n" +
                 "What is the number on the badge? (ex: #####)");
-            int badgeID = int.Parse(Console.ReadLine());
+            bool menuCorrect = int.TryParse(Console.ReadLine(), out int badgeID);
+
+            while (!menuCorrect)
+            {
+                Console.WriteLine("You have entered an incorrect character.\n" +
+                    "Please type the NUMBER of the menu item you want.");
+                Console.WriteLine("Add a badge:\n...\n...\n" +
+                    "What is the number on the badge? (ex: #####)");
+                menuCorrect = int.TryParse(Console.ReadLine(), out badgeID);
+            }
 
             Console.WriteLine("List a door that it needs access to:");
             string doorToAdd = Console.ReadLine();
@@ -62,6 +83,12 @@ namespace _04_Challenge
 
             if (menuChoiceYN == "y")
                 AddDoorToList(badgeID);
+            if (menuChoiceYN == "n") ;
+            else
+            {
+                Console.WriteLine("You have entered an incorrect character.\n" +
+                    "Returning to main Menu");
+            }
 
             Console.Clear();
         }
@@ -76,7 +103,17 @@ namespace _04_Challenge
             Console.WriteLine("What would you like to do?\n" +
                 "1: Remove a door\n" +
                 "2: Add a door");
-            int menuChoice = int.Parse(Console.ReadLine());
+            bool menuCorrect = int.TryParse(Console.ReadLine(), out int menuChoice);
+
+            while (!menuCorrect)
+            {
+                Console.WriteLine("You have entered an incorrect character.\n" +
+                    "Please type the NUMBER of the menu item you want.");
+                Console.WriteLine("What would you like to do?\n" +
+                    "1: Remove a door\n" +
+                    "2: Add a door");
+                menuCorrect = int.TryParse(Console.ReadLine(), out menuChoice);
+            }
 
             switch (menuChoice)
             {
@@ -99,7 +136,7 @@ namespace _04_Challenge
 
             _repo.RemoveDoorFromList(badgeID, doorToRemove);
 
-            Console.WriteLine("Door Removed");
+            Console.WriteLine($"Door {doorToRemove} Removed");
 
             DisplayDoorList(badgeID);
 
@@ -110,6 +147,12 @@ namespace _04_Challenge
 
             if (menuChoiceYN == "y")
                 RemoveDoorFromList(badgeID);
+            if (menuChoiceYN == "n") ;
+            else
+            {
+                Console.WriteLine("You have entered an incorrect character.\n" +
+                    "Returning to main Menu");
+            }
 
             Console.Clear();
         }
@@ -134,6 +177,12 @@ namespace _04_Challenge
 
             if (menuChoiceYN == "y")
                 AddDoorToList(badgeID);
+            if (menuChoiceYN == "n") ;
+            else
+            {
+                Console.WriteLine("You have entered an incorrect character.\n" +
+                    "Returning to main Menu");
+            }
 
             Console.Clear();
         }
