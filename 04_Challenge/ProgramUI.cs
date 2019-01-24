@@ -177,7 +177,7 @@ namespace _04_Challenge
 
             if (menuChoiceYN == "y")
                 AddDoorToList(badgeID);
-            if (menuChoiceYN == "n") ;
+            else if (menuChoiceYN == "n") ;
             else
             {
                 Console.WriteLine("You have entered an incorrect character.\n" +

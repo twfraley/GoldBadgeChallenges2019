@@ -25,11 +25,13 @@ namespace _04_Challenge_Tests
         }
 
         [TestMethod]
-        public void AddDoorToList_Test()
+        [DataRow(22345, "a2")]
+        [DataRow(22345, "a22")]
+        public void AddDoorToList_Test(int key, string door)
         {
             _repo.AddBadgeToDictionary(22345, "A3");
             _repo.AddToDoorList(22345, "A2");
-            _repo.AddToDoorList(22345, "A1");
+            _repo.AddToDoorList(key, door);
 
             int actual = _repo.GetDoorList(22345).Count();
             int expected = 3;
