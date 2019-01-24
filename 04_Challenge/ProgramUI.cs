@@ -8,18 +8,6 @@ namespace _04_Challenge
 {
     class ProgramUI
     {
-        //  Create Dictionary of employee badge information.
-        //  Badge needs number for access to specific set of doors.
-        //
-        //  The Program will allow a security staff member to do the following:
-        //      create a new badge
-        //      update doors on an existing badge.
-        //      delete all doors from an existing badge.
-        //
-        //  Out of scope:
-        //  You do not need to consider tying an individual badge to a particular user.Just the Badge # will do.
-        //
-
         BadgeRepository _repo = new BadgeRepository();
 
         public void Run()
@@ -46,6 +34,7 @@ namespace _04_Challenge
                         break;
                     case 3:
                         ListAllBadges();
+                        Console.Clear();
                         break;
                     case 4:
                     default:
@@ -61,26 +50,26 @@ namespace _04_Challenge
                 "What is the number on the badge? (ex: #####)");
             int badgeID = int.Parse(Console.ReadLine());
 
-            bool continueMenu = true;
-            while (continueMenu)
-            {
-                Console.WriteLine("List a door that it needs access to:");
-                string door = Console.ReadLine();
+            Console.WriteLine("List a door that it needs access to:");
+            string doorToAdd = Console.ReadLine();
 
-                _repo.AddBadgeToDictionary(badgeID, door);
+            _repo.AddBadgeToDictionary(badgeID, doorToAdd);
 
-                Console.WriteLine("Does it need access to any other doors? Y/N");
-                string menuChoiceYN = Console.ReadLine().ToLower();
+            DisplayDoorList(badgeID);
 
-                if (menuChoiceYN == "y")
-                    continueMenu = true;
-                else
-                    continueMenu = false;
-            }
+            Console.WriteLine("Does it need access to any other doors? Y/N");
+            string menuChoiceYN = Console.ReadLine().ToLower();
+
+            if (menuChoiceYN == "y")
+                AddDoorToList(badgeID);
+
+            Console.Clear();
         }
 
         public void EditABadge()
         {
+            ListAllBadges();
+
             Console.WriteLine("What is the badge number to update?");
             int badgeID = int.Parse(Console.ReadLine());
 
@@ -93,10 +82,12 @@ namespace _04_Challenge
             {
                 case 1:
                     RemoveDoorFromList(badgeID);
+                    Console.Clear();
                     break;
                 case 2:
                 default:
                     AddDoorToList(badgeID);
+                    Console.Clear();
                     break;
             }
         }
@@ -104,40 +95,79 @@ namespace _04_Challenge
         public void RemoveDoorFromList(int badgeID)
         {
             Console.WriteLine("Which door would you like to remove?");
-            string door = Console.ReadLine();
+            string doorToRemove = Console.ReadLine();
 
-            _repo.RemoveDoorFromList(badgeID, door);
+            _repo.RemoveDoorFromList(badgeID, doorToRemove);
 
             Console.WriteLine("Door Removed");
+
+            DisplayDoorList(badgeID);
+
             Console.ReadKey();
 
-            // Display new list of doors available to the key
+            Console.WriteLine("Would you like to remove another door? Y/N");
+            string menuChoiceYN = Console.ReadLine().ToLower();
+
+            if (menuChoiceYN == "y")
+                RemoveDoorFromList(badgeID);
+
+            Console.Clear();
         }
 
         public void AddDoorToList(int badgeID)
         {
-            Console.WriteLine("Which door would you like to add?");
-            string door = Console.ReadLine();
+            DisplayDoorList(badgeID);
 
-            _repo.AddToDoorList(badgeID, door);
+            Console.WriteLine("Which door would you like to add?");
+            string doorToAdd = Console.ReadLine();
+
+            _repo.AddToDoorList(badgeID, doorToAdd);
 
             Console.WriteLine("Door added");
+
+            DisplayDoorList(badgeID);
+
             Console.ReadKey();
 
-            // Display new list of doors available to the key
+            Console.WriteLine("Does it need access to any other doors? Y/N");
+            string menuChoiceYN = Console.ReadLine().ToLower();
+
+            if (menuChoiceYN == "y")
+                AddDoorToList(badgeID);
+
+            Console.Clear();
         }
 
         public void ListAllBadges()
         {
-            Dictionary<int,List<string>> badgeList = _repo.GetBadgeList();
+            Dictionary<int, List<string>> badgeList = _repo.GetBadgeList();
 
-            foreach (KeyValuePair<int, List<string>> badgeID in badgeList)
+            foreach (KeyValuePair<int, List<string>> badge in badgeList)
             {
-                //foreach list item (door), write it to the console, one after the other. Maybe?
+                List<string> doors = _repo.GetDoorList(badge.Key);
+                string doorsAccessed = null;
+
+                foreach (string door in doors)
+                {
+                    doorsAccessed = doorsAccessed + door + " ";
+                }
 
                 Console.WriteLine("Key Badge #: \tDoorAccess");
-                Console.WriteLine($"{badgeID.Key} \t\t {badgeID.Value}");
+                Console.WriteLine($"{badge.Key} \t\t {doorsAccessed}");
             }
+            Console.ReadKey();
+        }
+
+        public void DisplayDoorList(int badgeID)
+        {
+            List<string> doors = _repo.GetDoorList(badgeID);
+            Console.WriteLine("Current list of doors available to this badge:\n...");
+            string doorsAccessed = null;
+            foreach (string door in doors)
+            {
+                doorsAccessed = doorsAccessed + door + " ";
+            }
+            Console.WriteLine($"{doorsAccessed}\n");
         }
 
         public void PopulateBadgeList()
