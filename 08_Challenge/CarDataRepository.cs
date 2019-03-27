@@ -36,22 +36,5 @@ namespace _08_Challenge
             return success;
         }
 
-        //public decimal InsuranceCosts(float avgSpeed, float avgGForce, float avgStopSignRollthrough, float avgFollowDistance, TimeSpan timeSinceLastAccident)
-        //{
-        //    decimal insuranceCosts = 100m;
-
-        //    if (avgSpeed >= 65)
-        //        insuranceCosts += 50m;
-        //    if (avgGForce >= 2)
-        //        insuranceCosts += 50m;
-        //    if (avgStopSignRollthrough >= 4)
-        //        insuranceCosts += 50m;
-        //    if (avgFollowDistance <= 30)
-        //        insuranceCosts += 75m;
-        //    if (timeSinceLastAccident.TotalDays <= 1826)
-        //        insuranceCosts += 100m;
-
-        //    return insuranceCosts;
-        //}
     }
 }

@@ -8,11 +8,6 @@ namespace _02_Challenge
         ClaimsRepository _claimsRepository = new ClaimsRepository();
         Queue<Claim> _claims = new Queue<Claim>();
 
-        //-------------------------
-        // TO-DO: MAKE UNIT TESTS FOR REPOSITORY
-        //-----------------------
-
-
         public void Run()
         {
             //Start program
